@@ -1,11 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './style.css';
 import context from '../../Context';
 
 function Table() {
   const { data } = useContext(context);
+  const [filterName, setFilterName] = useState({ filterByName: { name: '' } });
+
+  const handleChange = ({ target: { value } }) => {
+    setFilterName({ filterByName: { name: value } });
+  };
   return (
     <div>
+      <input
+        type="text"
+        name="name-filter"
+        id="name-filter"
+        data-testid="name-filter"
+        placeholder="Insira o nome do planeta"
+        value={ filterName.filterByName.name }
+        onChange={ handleChange }
+      />
       <table>
         <thead>
           <tr>
