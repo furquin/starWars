@@ -10,12 +10,11 @@ function App() {
   const dataPlanetList = async () => {
     const response = await fetchApi();
     setPlanetList(response);
-    console.log(response);
   };
 
   useEffect(() => {
     dataPlanetList();
-  }, [dataPlanetList]);
+  }, []);
 
   return (
     <context.Provider value={ { data: planetList } }>
