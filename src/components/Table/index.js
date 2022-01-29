@@ -9,7 +9,9 @@ function Table() {
   const handleChange = ({ target: { value } }) => {
     setFilterName({ filterByName: { name: value } });
   };
+  const { name } = filterName.filterByName;
   return (
+
     <div>
       <input
         type="text"
@@ -17,7 +19,7 @@ function Table() {
         id="name-filter"
         data-testid="name-filter"
         placeholder="Insira o nome do planeta"
-        value={ filterName.filterByName.name }
+        value={ name }
         onChange={ handleChange }
       />
       <table>
@@ -41,7 +43,7 @@ function Table() {
         <tbody>
           {data.length > 0
             && data
-              .filter((planet) => planet.name.includes(filterName.filterByName.name))
+              .filter((planet) => planet.name.includes(name))
               .map((result) => (
                 <tr key={ result.name }>
                   <td>{result.name}</td>
