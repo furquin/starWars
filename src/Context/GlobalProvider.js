@@ -5,6 +5,8 @@ import fetchApi from '../service/fetchAPI';
 
 export default function GlobalProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
+  const [filterName, setFilterName] = useState({ filterByName: { name: '' } });
+
   const dataPlanetList = async () => {
     const response = await fetchApi();
     setPlanetList(response);
@@ -15,7 +17,7 @@ export default function GlobalProvider({ children }) {
   }, []);
 
   return (
-    <GlobalContext.Provider value={ { data: planetList } }>
+    <GlobalContext.Provider value={ { planetList, filterName, setFilterName } }>
       {children}
     </GlobalContext.Provider>
   );
