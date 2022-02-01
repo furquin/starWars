@@ -14,7 +14,15 @@ export default function GlobalProvider({ children }) {
       'surface_water'],
   );
   const [comparisons] = useState(['maior que', 'menor que', 'igual a']);
-  const [numberValue] = useState('0');
+  const [numberValue, setNumberValue] = useState('0');
+  const [filters, setFilters] = useState({
+    filterByNumericValues:
+      {
+        column: 'population',
+        comparison: 'maior que',
+        value: 0,
+      },
+  });
 
   const dataPlanetList = async () => {
     const response = await fetchApi();
@@ -34,6 +42,10 @@ export default function GlobalProvider({ children }) {
         optionsColumn,
         comparisons,
         numberValue,
+        setNumberValue,
+        filters,
+        setFilters,
+
       } }
     >
       {children}
