@@ -3,9 +3,24 @@ import './style.css';
 import GlobalContext from '../../Context/GlobalContext';
 
 function Table() {
-  const { planetList, filterName } = useContext(GlobalContext);
+  const {
+    planetList,
+    filterName,
+  } = useContext(GlobalContext);
+
   const { name } = filterName.filterByName;
-  const planetsFilterByName = planetList.filter((planet) => planet.name.includes(name));
+
+  const filters = (data, nameSearch) => {
+    if (!data) return [];
+
+    if (nameSearch) {
+      return data.filter((planet) => planet.name.includes(nameSearch));
+    }
+
+    return data;
+  };
+
+  const arrayFilter = filters(planetList, name);
 
   return (
     <div>
@@ -28,25 +43,24 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planetsFilterByName.length > 0
-            && planetsFilterByName
-              .map((result) => (
-                <tr key={ result.name }>
-                  <td>{result.name}</td>
-                  <td>{result.rotation_period}</td>
-                  <td>{result.orbital_period}</td>
-                  <td>{result.diameter}</td>
-                  <td>{result.climate}</td>
-                  <td>{result.gravity}</td>
-                  <td>{result.terrain}</td>
-                  <td>{result.surface_water}</td>
-                  <td>{result.population}</td>
-                  <td>{result.films}</td>
-                  <td>{result.created}</td>
-                  <td>{result.edited}</td>
-                  <td>{result.url}</td>
-                </tr>
-              ))}
+          {arrayFilter.length > 0
+            && arrayFilter.map((result) => (
+              <tr key={ result.name }>
+                <td>{result.name}</td>
+                <td>{result.rotation_period}</td>
+                <td>{result.orbital_period}</td>
+                <td>{result.diameter}</td>
+                <td>{result.climate}</td>
+                <td>{result.gravity}</td>
+                <td>{result.terrain}</td>
+                <td>{result.surface_water}</td>
+                <td>{result.population}</td>
+                <td>{result.films}</td>
+                <td>{result.created}</td>
+                <td>{result.edited}</td>
+                <td>{result.url}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
