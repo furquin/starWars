@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
+import React from 'react';
 import Table from './components/Table';
-import context from './Context';
-import fetchApi from './service/fetchAPI';
+import GlobalProvider from './Context/GlobalProvider';
 
-function App() {
-  const [planetList, setPlanetList] = useState([]);
-
-  const dataPlanetList = async () => {
-    const response = await fetchApi();
-    setPlanetList(response);
-  };
-
-  useEffect(() => {
-    dataPlanetList();
-  }, []);
-
+export default function App() {
   return (
-    <context.Provider value={ { data: planetList } }>
+    <GlobalProvider>
       <Table />
-    </context.Provider>
-  );
+    </GlobalProvider>);
 }
-
-export default App;
