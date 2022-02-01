@@ -4,37 +4,72 @@ import GlobalContext from '../../Context/GlobalContext';
 export default function FilterByValues() {
   const {
     optionsColumn,
+    SetOptionsColumn,
     comparisons,
-    filters,
-    setFilters,
-    numberValue,
-    setNumberValue,
+    column,
+    setColumn,
+    comparison,
+    setComparison,
+    value,
+    setValue,
+    planetList,
+    setPlanetList,
   } = useContext(GlobalContext);
 
-  const handleChange = ({ target: { value, name } }) => {
-    setFilters({ ...filters, [name]: value });
-    setNumberValue(value);
+  //!  função consultada no repositório do Cristiano Terra https://github.com/tryber/sd-016-a-project-starwars-planets-search/pull/82/commits/d24d4a8fe8eb69e9b2de8e6159dfa2803dd6d6ec
+
+  const filterColumn = ({ target }) => {
+    setColumn(target.value);
   };
 
+  const filterComparison = ({ target }) => {
+    setComparison(target.value);
+  };
+
+  const filterValue = ({ target }) => {
+    setValue(target.value);
+  };
+
+  const onClickChange = () => {
+    const valuesFiltered = parseInt(value, 10);
+    const planetsFiltered = planetList.filter((planet) => {
+      if (comparison === 'menor que') {
+        return planet[column] < valuesFiltered;
+      }
+      if (comparison === 'maior que') {
+        return planet[column] > valuesFiltered;
+      }
+      return planet[column] === value;
+    });
+
+    SetOptionsColumn(optionsColumn.filter((option) => option !== column));
+    setPlanetList(planetsFiltered);
+  };
   return (
     <div>
       <select
         data-testid="column-filter"
-        onChange={ handleChange }
+        onChange={ filterColumn }
         name="column"
+        value={ column }
       >
         {optionsColumn.map((option, index) => (
-          <option key={ index } value={ option }>{option}</option>
+          <option key={ index } value={ option }>
+            {option}
+          </option>
         ))}
       </select>
 
       <select
         data-testid="comparison-filter"
-        onChange={ handleChange }
+        onChange={ filterComparison }
         name="comparison"
+        value={ comparison }
       >
-        {comparisons.map((comparison, index) => (
-          <option key={ index } value={ comparison }>{comparison}</option>
+        {comparisons.map((comparisonOption, index) => (
+          <option key={ index } value={ comparisonOption }>
+            {comparisonOption}
+          </option>
         ))}
       </select>
 
@@ -42,11 +77,11 @@ export default function FilterByValues() {
         type="number"
         name="value"
         data-testid="value-filter"
-        value={ numberValue }
-        onChange={ handleChange }
+        value={ value }
+        onChange={ filterValue }
       />
 
-      <button type="button" onClick={ handleChange }>
+      <button type="button" onClick={ onClickChange } data-testid="button-filter">
         Filtrar
       </button>
     </div>
