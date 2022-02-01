@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import './style.css';
-import context from '../../Context';
+import GlobalContext from '../../Context/GlobalContext';
 
 function Table() {
-  const { data } = useContext(context);
-  return (
+  const { planetList, filterName } = useContext(GlobalContext);
+  const { name } = filterName.filterByName;
+  const planetsFilterByName = planetList.filter((planet) => planet.name.includes(name));
 
+  return (
     <div>
       <table>
         <thead>
@@ -26,8 +28,8 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {data.length > 0
-            && data
+          {planetsFilterByName.length > 0
+            && planetsFilterByName
               .map((result) => (
                 <tr key={ result.name }>
                   <td>{result.name}</td>
