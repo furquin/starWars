@@ -5,8 +5,11 @@ import fetchApi from '../service/fetchAPI';
 
 export default function GlobalProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
+  const [column, setColumn] = useState('population');
+  const [comparison, setComparison] = useState('maior que');
+  const [value, setValue] = useState(0);
   const [filterName, setFilterName] = useState({ filterByName: { name: '' } });
-  const [optionsColumn] = useState(
+  const [optionsColumn, SetOptionsColumn] = useState(
     ['population',
       'orbital_period',
       'diameter',
@@ -14,15 +17,6 @@ export default function GlobalProvider({ children }) {
       'surface_water'],
   );
   const [comparisons] = useState(['maior que', 'menor que', 'igual a']);
-  const [numberValue, setNumberValue] = useState('0');
-  const [filters, setFilters] = useState({
-    filterByNumericValues:
-      {
-        column: 'population',
-        comparison: 'maior que',
-        value: 0,
-      },
-  });
 
   const dataPlanetList = async () => {
     const response = await fetchApi();
@@ -37,14 +31,18 @@ export default function GlobalProvider({ children }) {
     <GlobalContext.Provider
       value={ {
         planetList,
+        setPlanetList,
         filterName,
         setFilterName,
         optionsColumn,
+        SetOptionsColumn,
         comparisons,
-        numberValue,
-        setNumberValue,
-        filters,
-        setFilters,
+        column,
+        setColumn,
+        value,
+        setValue,
+        comparison,
+        setComparison,
 
       } }
     >
