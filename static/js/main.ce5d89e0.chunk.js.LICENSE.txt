@@ -1,0 +1,1 @@
+//!  função consultada no repositório do Cristiano Terra https://github.com/tryber/sd-016-a-project-starwars-planets-search/pull/82/commits/d24d4a8fe8eb69e9b2de8e6159dfa2803dd6d6ec
