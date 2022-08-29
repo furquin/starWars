@@ -13,8 +13,7 @@
 
 # Tecnologias utilizadas
 - [ReactJS](https://pt-br.reactjs.org/)
-- [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/
-JavaScript)
+- [JavaScript] (https://developer.mozilla.org/pt-BR/docs/WebJavaScript)
 #
 
 # Habilidades desenvolvidas
